@@ -1,0 +1,74 @@
+{
+	"common": {
+		"name": "frank1",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "frank1",
+		"titleLang": {
+			"en": "frank1",
+			"de": "frank1",
+			"ru": "frank1",
+			"pt": "frank1",
+			"nl": "frank1",
+			"fr": "frank1",
+			"it": "frank1",
+			"es": "frank1",
+			"pl": "frank1",
+			"zh-cn": "frank1"
+		},
+		"desc": {
+			"en": "fr",
+			"de": "fr",
+			"ru": "fr",
+			"pt": "fr",
+			"nl": "fr",
+			"fr": "fr",
+			"it": "fr",
+			"es": "fr",
+			"pl": "fr",
+			"zh-cn": "fr"
+		},
+		"authors": [
+			"fluen <luennemann74@gmail.com>"
+		],
+		"keywords": [
+			"ddre"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "frank1.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/David20103/ioBroker.frank1/master/admin/frank1.png",
+		"readme": "https://github.com/David20103/ioBroker.frank1/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "protocols",
+		"compact": true,
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=1.4.2"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}

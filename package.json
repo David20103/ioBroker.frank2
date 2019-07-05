@@ -1,127 +1,54 @@
 {
-  "name": "@iobroker/create-adapter",
-  "version": "1.15.1",
-  "description": "Command line utility to create customized ioBroker adapters",
-  "keywords": [],
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "bin": "./bin/create-adapter.js",
-  "files": [
-    "/bin",
-    "/build",
-    "/adapter-creator.png"
-  ],
+  "name": "iobroker.frank1",
+  "version": "0.0.1",
+  "description": "fr",
   "author": {
-    "name": "AlCalzone",
-    "email": "d.griesel@gmx.net"
+    "name": "fluen",
+    "email": "luennemann74@gmail.com"
   },
+  "homepage": "https://github.com/David20103/ioBroker.frank1",
   "license": "MIT",
-  "homepage": "https://github.com/ioBroker/create-adapter#readme",
+  "keywords": [
+    "ddre"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ioBroker/create-adapter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ioBroker/create-adapter/issues"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "devDependencies": {
-    "@fimbul/mithotyn": "^0.21.0",
-    "@fimbul/wotan": "^0.21.0",
-    "@types/ansi-colors": "^3.2.0",
-    "@types/chai": "^4.1.7",
-    "@types/chai-as-promised": "^7.1.0",
-    "@types/debug": "4.1.4",
-    "@types/eslint": "^4.16.5",
-    "@types/fs-extra": "^8.0.0",
-    "@types/json5": "0.0.30",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^12.0.0",
-    "@types/prettier": "^1.16.3",
-    "@types/proxyquire": "^1.3.28",
-    "@types/semver": "^6.0.0",
-    "@types/sinon": "^7.0.11",
-    "@types/sinon-chai": "^3.2.1",
-    "@types/yargs": "^13.0.0",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",
-    "@typescript-eslint/parser": "^1.6.0",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "colors": "^1.3.2",
-    "copyfiles": "^2.1.0",
-    "coveralls": "^3.0.2",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "mocha": "^6.1.4",
-    "nyc": "^14.0.0",
-    "proxyquire": "^2.1.0",
-    "rimraf": "^2.6.2",
-    "sinon": "^7.1.1",
-    "sinon-chai": "^3.3.0",
-    "source-map-support": "^0.5.9",
-    "ts-node": "^8.1.0"
+    "url": "https://github.com/David20103/ioBroker.frank1"
   },
   "dependencies": {
-    "alcalzone-shared": "^2.0.0",
+    "@iobroker/adapter-core": "^1.0.3"
+  },
+  "devDependencies": {
+    "@iobroker/testing": "^1.2.5",
+    "@types/chai": "^4.1.7",
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/gulp": "^4.0.6",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.14.12",
+    "@types/proxyquire": "^1.3.28",
+    "@types/sinon": "^7.0.13",
+    "@types/sinon-chai": "^3.2.2",
     "axios": "^0.19.0",
-    "debug": "^4.1.0",
-    "enquirer": "^2.1.0",
-    "eslint": "^5.16.0",
-    "fs-extra": "^8.0.0",
-    "json5": "^2.1.0",
-    "prettier": "^1.17.0",
-    "semver": "^6.0.0",
-    "typescript": "^3.3.3",
-    "yargs": "^13.2.2"
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^6.0.1",
+    "gulp": "^4.0.2",
+    "mocha": "^6.1.4",
+    "proxyquire": "^2.1.0",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0"
   },
+  "main": "main.js",
   "scripts": {
-    "linkTemplates": "node --require ts-node/register maintenance/generateTemplateIndex.ts",
-    "prebuild:cacheLicenses": "node --require ts-node/register maintenance/cacheLicenses.ts",
-    "prebuild:cleanBuildDir": "rimraf ./build",
-    "prebuild": "npm run prebuild:cleanBuildDir && npm run linkTemplates && npm run prebuild:cacheLicenses",
-    "build": "tsc -p tsconfig.build.json",
-    "postbuild": "copyfiles \"templates/**/*.raw.*\" build",
-    "watch": "tsc -p tsconfig.build.json --watch",
-    "test:ts": "mocha src/**/*.test.ts",
-    "test:baselines": "mocha test/create-adapter.test.ts",
-    "pretest": "npm run linkTemplates",
-    "test": "npm run test:ts && npm run test:baselines",
-    "test:watch": "mocha src/**/*.test.ts --watch",
-    "coverage": "node_modules/.bin/nyc npm run test:ts",
-    "coveralls": "node_modules/.bin/nyc report --reporter=text-lcov | coveralls -v",
-    "show-coverage": "npm run coverage && start ./coverage/index.html",
-    "lint:ts": "eslint {src,test,travis,maintenance}/**/*.ts",
-    "lint:wotan": "wotan",
-    "lint": "npm run lint:ts && npm run lint:wotan",
-    "release": "node --require ts-node/register maintenance/release.ts",
-    "prepublishOnly": "npm run build"
+    "test:js": "mocha --opts test/mocha.custom.opts",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "lint": "eslint"
   },
-  "nyc": {
-    "all": true,
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "build/**",
-      "src/**/*.test.ts",
-      "**/*.d.ts",
-      "test/**"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "text-summary",
-      "html",
-      "lcov"
-    ],
-    "sourceMap": true,
-    "instrument": true
+  "bugs": {
+    "url": "https://github.com/David20103/ioBroker.frank1/issues"
   },
-  "readme": "README.md"
+  "readmeFilename": "README.md"
 }

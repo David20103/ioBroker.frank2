@@ -1,107 +1,97 @@
-# <img src="adapter-creator.png" width="48" height="48" style="vertical-align: middle" />&nbsp;<span style="vertical-align: middle">ioBroker adapter creator</span>
+![Logo](admin/frank1.png)
+# ioBroker.frank1
 
-Command line utility to quickly create a new adapter or VIS widget for [ioBroker](https://github.com/ioBroker):
+[![NPM version](http://img.shields.io/npm/v/iobroker.frank1.svg)](https://www.npmjs.com/package/iobroker.frank1)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.frank1.svg)](https://www.npmjs.com/package/iobroker.frank1)
+[![Dependency Status](https://img.shields.io/david/David20103/iobroker.frank1.svg)](https://david-dm.org/David20103/iobroker.frank1)
+[![Known Vulnerabilities](https://snyk.io/test/github/David20103/ioBroker.frank1/badge.svg)](https://snyk.io/test/github/David20103/ioBroker.frank1)
 
-<img src="docs/screenshot.png">
+[![NPM](https://nodei.co/npm/iobroker.frank1.png?downloads=true)](https://nodei.co/npm/iobroker.frank1/)
 
-[
-	![node](https://img.shields.io/node/v/@iobroker/create-adapter.svg)
-	![npm](https://img.shields.io/npm/v/@iobroker/create-adapter.svg)
-](https://www.npmjs.com/package/@iobroker/create-adapter)
-[
-	![Build Status](https://img.shields.io/travis/ioBroker/create-adapter/master.svg)
-](https://travis-ci.org/ioBroker/create-adapter)
-![License](https://img.shields.io/npm/l/@iobroker/create-adapter.svg)
-[
-	![Changelog](https://img.shields.io/badge/read-Changelog-blue.svg)
-](CHANGELOG.md)
+**Tests:**: [![Travis-CI](http://img.shields.io/travis/David20103/ioBroker.frank1/master.svg)](https://travis-ci.org/David20103/ioBroker.frank1)
 
-## Prerequisites
-Any computer with NodeJS in version 8 or higher and npm 6 or higher.
+## frank1 adapter for ioBroker
 
-## Usage
-This tool is not supposed to be installed. Instead, run the most recent version using
-```
-npx @iobroker/create-adapter [options]
-```
-in the directory where the directory of your project should be created. You don't need to create the adapter/widget directory, because it will be created for you.
+fr
 
-After a short while, you will be asked a few questions. Afterwards all the necessary files will be created for you.
+## Developer manual
+This section is intended for the developer. It can be deleted later
 
-### Options
-The following CLI options are available:
-* `--target=/path/to/dir` - Specify which directory the adapter files should be created in (instead of the current dir)
-* `--skipAdapterExistenceCheck` - Don't check if an adapter with the same name already exists on `npm`.
+### Getting started
 
-## Features
-* Choose between: ioBroker adapter, VIS widget or both
-* Ask for package metadata (with automatic translation):
-  * Title (mandatory)
-  * Short description (optional)
-  * Adapter start mode
-  * Adapter/VIS category
-  * Keywords (optional)
-* IntelliSense (auto completion and tooltips) in supporting editors based on the [ioBroker declaration files](https://www.npmjs.com/package/@types/iobroker)
-* JavaScript with the following optional tools:
-  * [ESLint](https://github.com/eslint/eslint) for code quality
-  * Type checking based on the ioBroker declarations
-* Or TypeScript with the following optional tools:
-  * [ESLint](https://github.com/eslint/eslint) for code quality
-  * [nyc](https://github.com/istanbuljs/nyc) for code coverage
-* Choose between indentation: tabs or 4 spaces
-* Choose your preferred quote style
-* Integration in the ioBroker admin UI:
-  * Settings page
-  * An extra tab (optional)
-  * Custom datapoint-specific options (optional)
-* Predefined settings page for the admin UI
-* Choice of an OpenSource license and automatic creation of the license file
-* Built-in component tests using `mocha`, `chai` (with `chai-as-promised`) and `sinon` (with `sinon-chai`) for:
-  * Correctly defined package files
-  * and your own tests...
-* Automated testing using Travis CI
+You are almost done, only a few steps left:
+1. Create a new repository on GitHub with the name `ioBroker.frank1`
 
-## Roadmap
-The following features did not make it into v1.0.0 and are planned for a later release:
-- [ ] [React](https://reactjs.org/) as an alternative to plain HTML+CSS for the admin UI (some predefined helpful methods included)
-- [ ] Strongly typed `adapter.config` properties in TypeScript (they are supported in JS though!)
-- [ ] Package scripts for automatic semantic release of new versions
-- [ ] Automatically open the folder in your favorite editor
-- [ ] Scripts/Helpers for remote debugging
+1. Push all files to the GitHub repo. The creator has already set up the local repository for you:  
+	```bash
+	git push origin master
+	```
+1. Head over to [main.js](main.js) and start programming!
 
-## Developing
-First of all: **DO NOT** push changes to `master` directly! Just don't. Every change should be done through PRs, which have a template with a checklist to fill out.
-This makes sure that `master` always works and every change is documented.
+### Scripts in `package.json`
+Several npm scripts are predefined for your convenience. You can run them using `npm run <scriptname>`
+| Script name | Description                                              |
+|-------------|----------------------------------------------------------|
+| `test:js`   | Executes the tests you defined in `*.test.js` files.     |
+| `test:package`    | Ensures your `package.json` and `io-package.json` are valid. |
+| `test` | Performs a minimal test run on package files and your tests. |
+| `coverage` | Generates code coverage using your test files. |
 
-For developers of this package, there are a few things to know:
+### Writing tests
+When done right, testing code is invaluable, because it gives you the 
+confidence to change your code while knowing exactly if and when 
+something breaks. A good read on the topic of test-driven development 
+is https://hackernoon.com/introduction-to-test-driven-development-tdd-61a13bc92d92. 
+Although writing tests before the code might seem strange at first, but it has very 
+clear upsides.
 
-* `npm run build` creates a fresh build and deletes old build files. This is necessary when template files are renamed or deleted, as the compiled files will still be there.
-* `npm run watch` keeps compiling incremental changes whenever you save a source file.
-* The directory `/templates` contains a bunch of templates, which are basically TypeScript files exporting a single method: 
-  * This method accepts an object with the user's answers and returns a `string` or `Promise<string>` containing the output file.
-  * The last extension (`.ts`) is removed when creating the output file. Setting the `customPath` property of the template method allows you to override the output path of the file, either a constant or depending on the user's answers (function).
-  * The outputted files are automatically formatted to have the correct indentation and multiple empty lines are removed. If you don't want this, set `noReformat` to true.
-* Test your changes with `npm test` and/or write relevant tests. For a couple of representative combination of answers, baseline adapter directories are generated. If those baselines are changed as a result of your changes, please review if those changes are desired.
+The template provides you with basic tests for the adapter startup and package files.
+It is recommended that you add your own tests into the mix.
 
-## Publishing
-Do not publish directly using `npm`. Instead create a new release with the release script `npm run release ...`. This creates a tag on github, performs a test run on TravisCI and after a successful build automatically publishes to npm.
+### Publishing the adapter
+See the documentation of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#requirements-for-adapter-to-get-added-to-the-latest-repository).
 
-You can semantically increase the version and publish it by using
-```bash
-npm run release [<releaseType> [<postfix>]] [-- --dry]
-```
-(preferably) or set a specific version by using
-```bash
-npm run release <version> [-- --dry]
-```
-The option `-- --dry` (don't forget the first pair of dashes) performs a dry run without updating files.
-The available release types are:
-* `major`
-* `premajor`
-* `minor`
-* `preminor`
-* `patch`
-* `prepatch`
-* `prerelease`
+### Test the adapter manually on a local ioBroker installation
+In order to install the adapter locally without publishing, the following steps are recommended:
+1. Create a tarball from your dev directory:  
+	```bash
+	npm pack
+	```
+1. Upload the resulting file to your ioBroker host
+1. Install it locally (The paths are different on Windows):
+	```bash
+	cd /opt/iobroker
+	npm i /path/to/tarball.tgz
+	```
 
-and the `pre-...` versions allow you to append a postfix like `-beta`.
+For later updates, the above procedure is not necessary. Just do the following:
+1. Overwrite the changed files in the adapter directory (`/opt/iobroker/node_modules/iobroker.frank1`)
+1. Execute `iobroker upload frank1` on the ioBroker host
+
+## Changelog
+
+### 0.0.1
+* (fluen) initial release
+
+## License
+MIT License
+
+Copyright (c) 2019 fluen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
