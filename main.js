@@ -6,10 +6,11 @@
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
-const utils = require("@iobroker/adapter-core");
+onst utils = require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+const UsbScanner = require('usb-barcode-scanner').UsbScanner;
 
 class Frank1 extends utils.Adapter {
 
@@ -38,18 +39,56 @@ class Frank1 extends utils.Adapter {
 		// this.config:
 		this.log.info("config option1: " + this.config.option1);
 		this.log.info("config option2: " + this.config.option2);
+		
+		
+ 
+		let scanner = new UsbScanner({
+        		vendorId: 5050,
+    		productId: 24
+		});
+ 
+		scanner.on('data', (data) => {
+    		this.log.info(decimalToHex(data));
+		await this.setStateAsync("RFID", { val: decimalToHex(data) , ack: true });
+		});
+ 
+		scanner.startScanning();
+
+
+
+		function decimalToHex(d, padding) {
+    			var hex = Number(d).toString(16);
+
+    			padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+    			while (hex.length < padding) {
+    	    			hex = "0" + hex;
+    			}
+
+    			var s = "";
+    			var i = hex.length;
+    			while (i>0) {
+        			s += hex.substring(i-2,i);
+        			i=i-2;
+    			}
+    			return s;
+
+
+}
+
+
 
 		/*
 		For every state in the system there has to be also an object of type state
 		Here a simple template for a boolean variable named "testVariable"
 		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
 		*/
-		await this.setObjectAsync("testVariable", {
+		await this.setObjectAsync("RFID", {
 			type: "state",
 			common: {
-				name: "testVariable",
-				type: "boolean",
-				role: "indicator",
+				name: "RFID",
+				type: "number",
+				role: "Zugang",
 				read: true,
 				write: true,
 			},
@@ -59,27 +98,9 @@ class Frank1 extends utils.Adapter {
 		// in this template all states changes inside the adapters namespace are subscribed
 		this.subscribeStates("*");
 
-		/*
-		setState examples
-		you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync("testVariable", true);
+		//await this.setStateAsync("RFID", { val: true, ack: true });
 
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync("admin", "iobroker");
-		this.log.info("check user admin pw ioboker: " + result);
-
-		result = await this.checkGroupAsync("admin", "admin");
-		this.log.info("check group user admin group admin: " + result);
-	}
+		}
 
 	/**
 	 * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -94,11 +115,7 @@ class Frank1 extends utils.Adapter {
 		}
 	}
 
-	/**
-	 * Is called if a subscribed object changes
-	 * @param {string} id
-	 * @param {ioBroker.Object | null | undefined} obj
-	 */
+
 	onObjectChange(id, obj) {
 		if (obj) {
 			// The object was changed
@@ -109,11 +126,7 @@ class Frank1 extends utils.Adapter {
 		}
 	}
 
-	/**
-	 * Is called if a subscribed state changes
-	 * @param {string} id
-	 * @param {ioBroker.State | null | undefined} state
-	 */
+
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
@@ -124,22 +137,6 @@ class Frank1 extends utils.Adapter {
 		}
 	}
 
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.message" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
-
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
 
 }
 
@@ -152,5 +149,5 @@ if (module.parent) {
 	module.exports = (options) => new Frank1(options);
 } else {
 	// otherwise start the instance directly
-	new Frank1();
+	new frank1();
 }

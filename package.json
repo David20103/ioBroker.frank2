@@ -6,14 +6,14 @@
     "name": "fluen",
     "email": "luennemann74@gmail.com"
   },
-  "homepage": "https://github.com/David20103/ioBroker.frank1",
+  "homepage": "https://github.com/David20103/ioBroker.frank2",
   "license": "MIT",
   "keywords": [
     "ddre"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/David20103/ioBroker.frank1"
+    "url": "https://github.com/David20103/ioBroker.frank2"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^1.0.3"
@@ -48,7 +48,7 @@
     "lint": "eslint"
   },
   "bugs": {
-    "url": "https://github.com/David20103/ioBroker.frank1/issues"
+    "url": "https://github.com/David20103/ioBroker.frank2/issues"
   },
   "readmeFilename": "README.md"
 }
